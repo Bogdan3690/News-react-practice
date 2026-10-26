@@ -1,8 +1,7 @@
 import { Component } from "react";
-import axios from "axios";
+import { fetchArticles } from "./services/api";
 import "./App.css";
 
-axios.defaults.baseURL = "http://hn.algolia.com/api/v1";
 
 class App extends Component {
   state = {
@@ -16,10 +15,10 @@ class App extends Component {
       isLoading: true,
     });
     try {
-      const resp = await axios.get("/search");
+      const articles = await fetchArticles();
 
       this.setState({
-        articles: resp.data.hits,
+        articles: articles,
       });
     } catch (error) {
       this.setState({
